@@ -1,0 +1,98 @@
+{% extends 'chatbot/layout.html' %}
+{% load static %}
+{% block body %}
+
+
+{% if not user.is_authenticated %}
+<div class="containerWelcome">
+    <div class="welcome-box">
+        <h1>Welcome to DevBot</h1>
+        <p>Please login or register to continue.</p>
+        <div class="button-container">
+            <a href="{% url 'login' %}" class="btn">Login</a>
+            <a href="{% url 'register' %}" class="btn">Register</a>
+        </div>
+    </div>
+</div>
+{% else %}
+
+
+<img id="static-image" src="{% static 'chatbot/file.jpg' %}" style="display: none;">
+<img id="static-bot" src="{% static 'chatbot/Gemini_Generated_Image_tyy402tyy402tyy4.jpg' %}" style="display: none;">
+
+
+<div class="container p-0">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-12 col-lg-5 col-xl-3 border-right">
+                <div class="list-group-item list-group-item-action border-0">
+                    <div class="d-flex align-items-start">
+                        <img src="{% static 'chatbot/file.jpg' %}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                        <div class="flex-grow-1 ml-3" id="username">
+                            {{ request.user }} 
+                        </div>
+                        <a href="{% url 'logout' %}">
+                        <div class="flex-grow-1 ml-3">
+                            Logout
+                        </div>
+                        </a>
+                    </div>
+            </div>
+                <hr class="d-block d-lg-none mt-1 mb-0">
+            </div>
+
+            <!-- Top name -->
+            <div class="col-12 col-lg-7 col-xl-9">
+                <div class="py-2 px-4 border-bottom d-none d-lg-block">
+                    <div class="d-flex align-items-center py-1">
+                        <div class="position-relative">
+                            <img src="{% static 'chatbot/Gemini_Generated_Image_tyy402tyy402tyy4.jpg' %}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                        </div>
+                        <div class="flex-grow-1 pl-3">
+                            <strong>DevBot</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-messages p-4" style="height: 400px; overflow-y: auto;">
+                    {% for p in prompt %}
+                    <div class="chat-message-right mb-4">
+                        <div>
+                            <img src="{% static 'chatbot/file.jpg' %}" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                        </div>
+                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                            <div class="font-weight-bold mb-1">{{ request.user }}</div>
+                            <p>{{ p.prompt }}</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-left pb-4">
+                        <div>
+                            <img src="{% static 'chatbot/Gemini_Generated_Image_tyy402tyy402tyy4.jpg' %}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                        </div>
+                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                            <div class="font-weight-bold mb-1">DevBot</div>
+                            <p>{{ p.response }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Form -->
+                <form class="prompting" method="post">
+                    {% csrf_token %}
+                    <div class="flex-grow-0 py-3 px-4 border-top">
+                        <div class="input-group">
+                            <input type="text" id="prompt" class="form-control prompt" placeholder="Write A Prompt">
+                            <input type="submit" class="btn btn-primary" value="ASK!">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

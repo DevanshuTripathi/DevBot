@@ -1,0 +1,144 @@
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 60px; 
+    height: 60px;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    max-height: 800px;
+    overflow-y: auto; 
+    padding: 10px; 
+    background-color: #f8f9fa;
+}
+
+/* Chat message containers */
+.chat-message-left,
+.chat-message-right {
+    display: flex;
+    align-items: flex-start; 
+    margin-bottom: 10px;
+}
+
+/* Align left messages */
+.chat-message-left {
+    margin-right: auto;
+}
+
+/* Align right messages */
+.chat-message-right {
+    flex-direction: row-reverse; 
+    margin-left: auto;
+}
+
+.py-3 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.px-4 {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+}
+
+.flex-grow-0 {
+    flex-grow: 0 !important;
+}
+
+.border-top {
+    border-top: 1px solid #dee2e6 !important;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("bgimage.jpg");
+    background-size: cover;
+    background-position: center top;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerWelcome {
+    text-align: center;
+    background-color: white;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-box h1 {
+    font-size: 2.5rem;
+    color: #2d3436;
+    margin-bottom: 20px;
+}
+
+.welcome-box p {
+    font-size: 1.2rem;
+    color: #636e72;
+    margin-bottom: 30px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    background-color: #0984e3;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #74b9ff;
+}
+
+.btn:active {
+    background-color: #2d3436;
+}
+
+a{
+    color:red;
+}
