@@ -13,3 +13,10 @@ class Prompt(models.Model):
     def __str__(self):
         return f"{self.user} prompted {self.prompt[:10]}"
     
+    def serialize(self):
+        return {
+            "id":self.id,
+            "user":self.user.id,
+            "prompt":self.prompt,
+            "response":self.response
+        }
