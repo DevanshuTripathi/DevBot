@@ -121,7 +121,7 @@ body {
     gap: 20px;
 }
 
-.btn {
+/* .btn {
     text-decoration: none;
     padding: 15px 30px;
     font-size: 1rem;
@@ -129,7 +129,7 @@ body {
     color: white;
     background-color: #0984e3;
     transition: background-color 0.3s ease;
-}
+} */
 
 .btn:hover {
     background-color: #74b9ff;
@@ -141,5 +141,85 @@ body {
 
 a{
     color:red;
+}
+
+.search-icon{
+    height: 5px;
+    width: 5px;
+}
+.search{
+    margin:0px;
+    padding:0px;
+}
+
+#share{
+    display:none;
+}
+
+.chat-message-left:hover #share {
+    display: block;
+}
+
+#search-link{
+    text-decoration: none;
+}
+
+/* Custom chat container */
+.custom-chat {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;  /* Takes 80% of screen height */
+    max-width: 90%; /* Takes 80% of screen width */
+    margin: auto;  /* Centers the chat on the screen */
+    overflow-y: auto; 
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for the box */
+}
+
+.back-home-container {
+    display:block;
+    text-align: center; /* Center the button */
+    margin-top: 20px;   /* Add space between the chat and button */
+}
+
+.back-home-container .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-home-container .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Fix the bot's photo at the top */
+.custom-chat .chat-message-left img,
+.custom-chat .chat-message-right img {
+    align-self: flex-start;
+}
+
+.custom-chat .chat-message-left,
+.custom-chat .chat-message-right {
+    margin-bottom: 10px;
+}
+
+.custom-chat .chat-message-left {
+    margin-right: auto;
+}
+
+.custom-chat .chat-message-right {
+    flex-direction: row-reverse; 
+    margin-left: auto;
+}
+
+/* Adjust padding for chat bubbles */
+.custom-chat .chat-message-left .flex-shrink-1,
+.custom-chat .chat-message-right .flex-shrink-1 {
+    padding: 10px;
+    max-width: 90%;
 }
 

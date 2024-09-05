@@ -7,17 +7,21 @@
 <div class="containerWelcome">
     <div class="welcome-box">
         <h1>Welcome to DevBot</h1>
-        <p>Please login or register to continue.</p>
+        <p>Please login or register or look at prompts shared by people</p>
         <div class="button-container">
-            <a href="{% url 'login' %}" class="btn">Login</a>
-            <a href="{% url 'register' %}" class="btn">Register</a>
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+            <a href="{% url 'community' %}" class="btn btn-primary">Community</a>
         </div>
     </div>
 </div>
 {% else %}
 
-
-<img id="static-image" src="{% static 'chatbot/file.jpg' %}" style="display: none;">
+{% if user.img %}
+<img id="static-image" src="{{ user.img }}" style="display: none;">
+{% else %}
+<img id="static-image" src="{% static 'chatbot/default-profile.jpg' %}" style="display:none;">
+{% endif %}
 <img id="static-bot" src="{% static 'chatbot/Gemini_Generated_Image_tyy402tyy402tyy4.jpg' %}" style="display: none;">
 
 
@@ -27,7 +31,11 @@
             <div class="col-12 col-lg-5 col-xl-3 border-right">
                 <div class="list-group-item list-group-item-action border-0">
                     <div class="d-flex align-items-start">
-                        <img src="{% static 'chatbot/file.jpg' %}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                        {% if user.img %}
+                        <img src="{{ user.img }}" class="rounded-circle mr-1" alt="User" width="40" height="40">
+                        {% else %}
+                        <img src="{% static 'chatbot/default-profile.jpg' %}" class="rounded-circle mr-1" alt="User" width="40" height="40">
+                        {% endif %}
                         <div class="flex-grow-1 ml-3" id="username">
                             {{ request.user }} 
                         </div>
@@ -40,7 +48,8 @@
             </div>
             <div class="d-flex align-items-start">
                 <div class="flex-grow-1 ml-3" id="username">
-                    <input type="text" class="search"> 
+                    <i class="fa fa-search"></i>
+                    <input type="text" class="search" placeholder="Search a prompt..."> 
                 </div>
             </div>
             
@@ -66,7 +75,11 @@
                     {% for p in prompt %}
                     <div class="chat-message-right mb-4">
                         <div>
-                            <img src="{% static 'chatbot/file.jpg' %}" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                            {% if user.img %}
+                            <img src="{{ user.img }}" class="rounded-circle mr-1" alt="User" width="40" height="40">
+                            {% else %}
+                            <img src="{% static 'chatbot/default-profile.jpg' %}" class="rounded-circle mr-1" alt="User" width="40" height="40">
+                            {% endif %}
                         </div>
                         <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                             <div class="font-weight-bold mb-1">{{ request.user }}</div>
@@ -81,6 +94,14 @@
                         <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
                             <div class="font-weight-bold mb-1">DevBot</div>
                             <p>{{ p.response|safe }}</p>
+                            <a href="{% url 'sharing' prompt_id=p.id %}" id="search-link"><button type="button" class="btn btn-primary" id="share">
+                                {% if p.shared %}
+                                Unshare
+                                {% else %}
+                                Share
+                                {% endif %}
+                            </button></a>
+                            
                         </div>
                     </div>
                     {% endfor %}

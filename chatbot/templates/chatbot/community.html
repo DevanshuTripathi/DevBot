@@ -1,0 +1,35 @@
+{% extends 'chatbot/layout.html' %}
+
+{% load static %}
+
+{% block body %}
+<div>
+<div class="chat-messages custom-chat p-4" >
+    {% for p in prompts %}
+    <div class="chat-message-right mb-4">
+        <div>
+            <img src="{{ p.user.img }}" class="rounded-circle mr-1" alt="User" width="40" height="40">
+        </div>
+        <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+            <div class="font-weight-bold mb-1">{{ p.user }}</div>
+            <p>{{ p.prompt }}</p>
+        </div>
+    </div>
+
+    <div class="chat-message-left pb-4">
+        <div>
+            <img src="{% static 'chatbot/Gemini_Generated_Image_tyy402tyy402tyy4.jpg' %}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+        </div>
+        <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+            <div class="font-weight-bold mb-1">DevBot</div>
+            <p>{{ p.response|safe }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="back-home-container">
+    <a href="{% url 'index' %}"><button class="btn">Back to Home</button></a>
+    </div>
+</div>
+
+{% endblock %}

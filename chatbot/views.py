@@ -84,6 +84,7 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
+        img = request.POST["pfp"]
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -95,7 +96,8 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username, email, password,)
+            user.img = img
             user.save()
         except IntegrityError:
             return render(request, "chatbot/register.html", {
@@ -119,3 +121,22 @@ def search(request, text):
         return render(request, 'chatbot/index.html', {
             'prompt':Prompt.objects.filter(user=request.user)
         })
+
+def shared(request):
+    return render(request, 'chatbot/community.html', {
+        'prompts':Prompt.objects.filter(shared=True)
+    })
+
+def sharing(request, prompt_id):
+    prompt = Prompt.objects.get(pk=prompt_id)
+    if prompt.shared :
+        prompt.shared=False
+    else:
+        prompt.shared=True
+    
+    prompt.save()
+
+    return render(request, 'chatbot/index.html', {
+        'prompt': Prompt.objects.filter(user=request.user)
+    })
+    
