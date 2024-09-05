@@ -13,7 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(prompt => {
             prompt.forEach(p => {
-                console.log(p.prompt)
+                console.log(p.prompt);
+                const rightMessage = document.querySelector('.chat-message-right');
+                const leftMessage = document.querySelector('.chat-message-left');
+                chatMessages.removeChild(rightMessage);
+                chatMessages.removeChild(leftMessage);
+
                 const userContainer = document.createElement('div');
                 userContainer.className = 'chat-message-right mb-4';
         
