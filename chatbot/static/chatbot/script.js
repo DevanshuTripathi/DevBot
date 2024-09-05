@@ -8,16 +8,22 @@ document.addEventListener('DOMContentLoaded', () => {
         let query = searching.value;
         const username = document.querySelector('#username').innerHTML;
         const chatMessages = document.querySelector('.chat-messages');
-        const searched = document.querySelector('.searched')
-        fetch(`/search/${query}`)
-        .then(response => response.json())
-        .then(prompt => {
+        const searched = document.querySelector('.searched');
+
+        chatMessages.innerHTML = '';
+
+        console.log(query);
+
+        if(query === ''){
+            console.log('heya');
+
+            window.location.href = '';
+        }
+        else{
+            fetch(`/search/${query}`)
+            .then(response => response.json())
+            .then(prompt => {
             prompt.forEach(p => {
-                console.log(p.prompt);
-                const rightMessage = document.querySelector('.chat-message-right');
-                const leftMessage = document.querySelector('.chat-message-left');
-                chatMessages.removeChild(rightMessage);
-                chatMessages.removeChild(leftMessage);
 
                 const userContainer = document.createElement('div');
                 userContainer.className = 'chat-message-right mb-4';
@@ -43,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userMessage.appendChild(userPrompt);
         
                 userContainer.appendChild(userMessage);
-        
+
                 const botContainer = document.createElement('div');
                 botContainer.className = 'chat-message-left pb-4';
         
@@ -82,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             // chatMessages.style.display='none';
         })
+        }
+        
+        
     })
 
     function scrollToBottom() {

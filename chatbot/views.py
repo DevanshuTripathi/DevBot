@@ -9,7 +9,6 @@ from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 import markdown
-import logging
 
 
 import os
@@ -17,7 +16,6 @@ import google.generativeai as genai
 
 from .models import User, Prompt
 
-logger = logging.getLogger(__name__)
 
 genai.configure(api_key = os.getenv('API_KEY'))
 
@@ -113,10 +111,11 @@ def search(request, text):
     if not text:
         return JsonResponse({"error": "No search text provided"}, status=400)
     
-    try:
-        prompts = Prompt.objects.filter(prompt__icontains=text, user=request.user)
-        logger.info(f"Search query: {text}, Results found: {prompts.count()}")
-        return JsonResponse([p.serialize() for p in prompts], safe=False)
-    except Exception as e:
-        logger.error(f"Error in search view: {e}")
-        return JsonResponse({"error": "none."}, status=500)
+    prompts = Prompt.objects.filter(prompt__icontains=text, user=request.user)
+
+    if prompts.exists():
+        return JsonResponse([p.serialize() for p in prompts],  safe=False)
+    else:
+        return render(request, 'chatbot/index.html', {
+            'prompt':Prompt.objects.filter(user=request.user)
+        })
